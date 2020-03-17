@@ -8,28 +8,27 @@ public class Singly implements ILinkedList{
 	}
 	
 	int listCount;
-	Node head ;
+	Node header ;
 	
 	public Singly ()
 	{
-		head = new Node() ;
-		head.next=null;
+		header = new Node() ;
+		header.next=null;
 		this.listCount=0;
 	}
 	
 	@Override
-	public void add(int index, Object element) {
+	public void add(int index, Object element)  {
 		if (valid(index))
 		{
 			Node added = new Node () ;
 			added.data=element;
-			Node i = head;
+			Node i = header;
 			for (int j=1 ; j<index ;i=i.next) j++;
 			added.next= i.next;
 			i.next = added ;
 			listCount++;		
 		}
-		else System.out.println("ERROR : Invalid Index");
 	}
 
 	@Override
@@ -38,7 +37,7 @@ public class Singly implements ILinkedList{
 		Node added = new Node () ;
 		added.data=element;
 		added.next=null;
-		Node i= head ;
+		Node i= header ;
 		for (; i.next!=null ;i=i.next);
 		i.next=added;
 		listCount++;	
@@ -48,31 +47,26 @@ public class Singly implements ILinkedList{
 	public Object get(int index) {
 		if (valid(index))
 		{
-			Node i = head;
+			Node i = header;
 			for (int j=1; j<=index ;i=i.next) j++;
 			return i.data;		
 		}
-		else 
-		{
-			System.out.println("ERROR : Invalid Index");
-			return null ;
-		}
+		else return null ;
 	}
 
 	@Override
 	public void set(int index, Object element) {
 		if (valid(index))
 		{
-			Node i = head;
+			Node i = header;
 			for (int j=1; j<=index ;i=i.next) j++;
 			i.data=element;
 		}
-		else System.out.println("ERROR : Invalid Index");	
 	}
 
 	@Override
 	public void clear() {
-		head.next=null;
+		header.next=null;
 		listCount=0;	
 	}
 
@@ -88,13 +82,12 @@ public class Singly implements ILinkedList{
 	public void remove(int index) {
 		if (valid(index))
 		{
-			Node i = head;
+			Node i = header;
 			for (int j=1; j<index ;i=i.next) j++;
 			Node t =i.next;
 			i.next=t.next;
 			listCount--;	
 		}
-		else System.out.println("ERROR : Invalid Index");	
 	}
 
 	@Override
@@ -106,7 +99,7 @@ public class Singly implements ILinkedList{
 	public ILinkedList sublist(int fromIndex, int toIndex) {
 		if (valid(fromIndex) && valid(toIndex))
 		{
-			Node i = head;
+			Node i = header;
 			for (int j=1 ; j<=fromIndex ;i=i.next) j++;
 			
 			Singly subList = new Singly ();
@@ -119,17 +112,13 @@ public class Singly implements ILinkedList{
 		
 			return subList;
 		}
-		else
-		{
-			System.out.println("ERROR : Invalid Index");
-			return null ;
-		}
+		else return null ;
 	}
 
 	@Override
 	public boolean contains(Object o) {
 		boolean found = false ;
-		Node i = head;
+		Node i = header;
 		for (; i.next!=null ;i=i.next)
 		{
 			if (i.data == o)
@@ -142,10 +131,9 @@ public class Singly implements ILinkedList{
 	}
 	
 	public void print (Singly list) {
-		if (listCount == 0) System.out.println("List is empty");
-		else
+		if (listCount != 0) 
 		{
-			Node i = head.next;
+			Node i = header.next;
 			for (; i.next!=null ;i=i.next)
 				System.out.println(i.data);
 			System.out.println(i.data);	
