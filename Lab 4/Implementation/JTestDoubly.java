@@ -14,12 +14,13 @@ class JTestDoubly {
 		assertEquals(1,list.get(1));
 		assertEquals(5,list.get(5));
 		assertEquals(10,list.get(10));
-		assertEquals(null,list.get(100));
+		assertEquals(null,list.get(15));
 		}
 	
 	@Test
 	void add() {
 		list.add(1);list.add(2);list.add(3);list.add(4);list.add(5);list.add(6);list.add(7);list.add(8);list.add(9);list.add(10);
+		list.add(15,10);
 		list.add(5,0);
 		assertEquals(0,list.get(5));
 	}
@@ -27,6 +28,7 @@ class JTestDoubly {
 	@Test
 	void set() {
 		list.add(1);list.add(2);list.add(3);list.add(4);list.add(5);list.add(6);list.add(7);list.add(8);list.add(9);list.add(10);
+		list.set(15,0);
 		list.set(5,0);
 		assertEquals(0,list.get(5));
 	}
@@ -34,6 +36,10 @@ class JTestDoubly {
 	@Test
 	void subList() {
 		list.add(1);list.add(2);list.add(3);list.add(4);list.add(5);list.add(6);list.add(7);list.add(8);list.add(9);list.add(10);
+		
+		Doubly listError = new Doubly();
+		listError=(Doubly) list.sublist(3, 15);
+		assertEquals(null,listError);
 		
 		Doubly list1 = new Doubly();
 		list1=(Doubly) list.sublist(3, 6);
@@ -51,6 +57,8 @@ class JTestDoubly {
 	@Test
 	void remove() {
 		list.add(1);list.add(2);list.add(3);list.add(4);list.add(5);list.add(6);list.add(7);list.add(8);list.add(9);list.add(10);
+		
+		list.remove(15);
 		
 		list.remove(5);
 		assertEquals(9,list.size());
