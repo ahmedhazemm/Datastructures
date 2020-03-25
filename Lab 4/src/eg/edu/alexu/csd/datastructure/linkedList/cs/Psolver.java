@@ -125,8 +125,20 @@ public class Psolver implements IPolynomialSolver {
 			return sPoly="Empty";
 		else
 		{
-			sPoly =  ( list.get(1) + "x^" + max ) ;
-			
+			if((int)list.get(1)!=0) {
+			if(max!=0&&(int)list.get(1)!=1&&max!=1)
+			sPoly =  ( String.valueOf(list.get(1)) + "x^" + max ) ;
+			else if (max==0)
+				sPoly = (String.valueOf(list.get(1)));
+			else if (max==1) {
+				if((int)(list.get(1))!=1)
+				sPoly = (String.valueOf(list.get(1)) + "x");
+				else
+					sPoly="x";
+			}
+			else 
+				sPoly = ("x^" + max );
+			}
 			for (int i=2 ; i<= list.size() ; i++)
 				
 			{
@@ -134,11 +146,19 @@ public class Psolver implements IPolynomialSolver {
 					continue;
 				else 
 				{
-					sPoly += ( "+" + list.get(i) + "x^" + (max-i+1) ) ;
+					if((int)list.get(i)>=0&&!sPoly.isEmpty()) 
+						sPoly +=("+");
+					if((max-i+1)!=0&&(int)list.get(i)!=1&&(max-i+1)!=1)
+						sPoly +=  (String.valueOf(list.get(i)) + "x^" + (max-i+1) ) ;
+						else if (max-i+1==0)
+							sPoly += (String.valueOf(list.get(i))) ;
+						else if (max-i+1==1)
+							sPoly += (String.valueOf(list.get(i)) + "x") ;
+						else 
+							sPoly += ("x^" + (max-i+1) );
 				}
 			}
 		}
-		
 		return sPoly;
 	}
 
