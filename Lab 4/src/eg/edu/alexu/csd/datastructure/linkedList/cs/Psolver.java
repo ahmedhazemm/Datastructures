@@ -1,57 +1,87 @@
 package eg.edu.alexu.csd.datastructure.linkedList.cs;
-import java.util.*;
-import java.lang.Math; 
+import java.util.*; 
 
 public class Psolver implements IPolynomialSolver {
 	
-	Doubly polyA = new Doubly() ;
-	Doubly polyB = new Doubly() ;
-	Doubly polyC = new Doubly() ;
-	Doubly polyR = new Doubly() ;
+	Singly polyA = new Singly() ;
+	Singly polyB = new Singly() ;
+	Singly polyC = new Singly() ;
+	Singly polyR = new Singly() ;
 	int maxA=0 , maxB=0 , maxC=0 ,maxR=0;
 	int minA=0,minB=0,minC=0,minR=0;
+	boolean negA=false,negB=false,negC=false,negR=false;
 	int min1=0,min2=0,max1=0,max2=0;
 
 	@Override
 	public void setPolynomial(char poly, int[][] terms) {
-		Doubly list = new Doubly ();
-		list.clear();
-		sortbyColumn(terms,1);
-		int max = terms [0][1];
-		int exp = max;
 		
-		for (int i=0 ; i< terms.length ; i++)
+		Singly list = new Singly ();
+		list.clear();
+		
+		if (terms.length > 0 )
 		{
-			if (terms[i][1] == exp)
+			sortbyColumn(terms,1);
+			int max = terms [0][1];
+			int exp = max;
+			
+			boolean neg = false;
+			if ( terms [terms.length-1][1] < 0 )
+				neg = true;
+			
+			for (int i=0 ; i< terms.length ; i++)
 			{
-				list.add(terms[i][0]);
-				exp--;
+				if (terms[i][1] == exp)
+				{
+					list.add(terms[i][0]);
+					exp--;
+				}
+				else 
+				{
+					list.add(0);
+					exp--;
+					i--;
+				}
 			}
-			else 
+			
+			switch (poly) 
 			{
-				list.add(0);
-				exp--;
-				i--;
+				case 'A' :
+					polyA=list;
+					maxA=max;
+					negA=neg;
+					break;
+				case 'B' :
+					polyB=list;
+					maxB=max;
+					negB=neg;
+					break;
+				case 'C' :
+					polyC=list;
+					maxC=max;
+					negC=neg;
+					break;
+				case 'R' :
+					polyR=list;
+					maxR=max;
+					negR=neg;
+					break;	
+				default :
+					break;
 			}
 		}
-		
 		switch (poly) 
 		{
 			case 'A' :
 				polyA=list;
-				maxA=max;
 				break;
 			case 'B' :
 				polyB=list;
-				maxB=max;
 				break;
 			case 'C' :
 				polyC=list;
-				maxC=max;
 				break;
 			case 'R' :
 				polyR=list;
-				maxR=max;
 				break;	
 			default :
 				break;
@@ -61,7 +91,7 @@ public class Psolver implements IPolynomialSolver {
 
 	@Override
 	public String print(char poly) {
-		Doubly list = new Doubly ();
+		Singly list = new Singly ();
 		String sPoly =new String ();
 		int max=0;
 		
@@ -109,7 +139,6 @@ public class Psolver implements IPolynomialSolver {
 			}
 		}
 		
-		
 		return sPoly;
 	}
 
@@ -133,28 +162,38 @@ public class Psolver implements IPolynomialSolver {
 
 	@Override
 	public float evaluatePolynomial(char poly, float value) {
-		Doubly list = new Doubly ();
+		Singly list = new Singly ();
+		boolean neg = false;
 		float ans=0;
 		int max;
+		
 		switch (poly) 
 		{
 			case 'A' :
 				list=polyA;
 				max=maxA;
+				neg=negA;
 				System.out.print("A = ");
 				break;
 			case 'B' :
 				list=polyB;
 				max=maxB;
+				neg=negB;
 				System.out.print("B = ");
 				break;
 			case 'C' :
 				list=polyC;
 				max=maxC;
+				neg=negC;
 				System.out.print("C = ");
 				break;
 			default :
 				return ans;
+		}
+		
+		if (neg) 
+		{
+			throw new RuntimeException ("ERROR : Division by ZERO") ;
 		}
 		
 		if (list.isEmpty())		
@@ -164,13 +203,14 @@ public class Psolver implements IPolynomialSolver {
 		{
 			ans += (int) list.get(i) * ( Math.pow(value,max) );
 			max--;
-		} return ans;
+		}
+		return ans;
 	}
 
 	@Override
 	public int[][] add(char poly1, char poly2) {
-		Doubly list1 = new Doubly ();
-		Doubly list2= new Doubly ();
+		Singly list1 = new Singly ();
+		Singly list2= new Singly ();
 		minA=maxA-polyA.size()+1;
 		minB=maxB-polyB.size()+1;
 		minC=maxC-polyC.size()+1;
@@ -250,8 +290,8 @@ public class Psolver implements IPolynomialSolver {
 
 	@Override
 	public int[][] subtract(char poly1, char poly2) {
-		Doubly list1 = new Doubly ();
-		Doubly list2= new Doubly ();
+		Singly list1 = new Singly ();
+		Singly list2= new Singly ();
 		minA=maxA-polyA.size()+1;
 		minB=maxB-polyB.size()+1;
 		minC=maxC-polyC.size()+1;
@@ -331,8 +371,8 @@ public class Psolver implements IPolynomialSolver {
 
 	@Override
 	public int[][] multiply(char poly1, char poly2) {
-		Doubly list1 = new Doubly ();
-		Doubly list2= new Doubly ();
+		Singly list1 = new Singly ();
+		Singly list2= new Singly ();
 		minA=maxA-polyA.size()+1;
 		minB=maxB-polyB.size()+1;
 		minC=maxC-polyC.size()+1;

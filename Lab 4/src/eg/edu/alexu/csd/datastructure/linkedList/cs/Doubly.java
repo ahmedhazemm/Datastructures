@@ -34,6 +34,8 @@ public class Doubly implements ILinkedList {
 			t.prev=added;
 			listCount++;
 		}
+		else 
+			throw new RuntimeException ("ERROR : Invalid Index") ;
 	}
 
 	@Override
@@ -57,7 +59,9 @@ public class Doubly implements ILinkedList {
 			for (int j=1; j<=index ;i=i.next) j++;
 			return i.data;
 		}
-		else return null ;
+		else 
+			throw new RuntimeException ("ERROR : Invalid Index") ;
+
 	}
 
 	@Override
@@ -68,6 +72,8 @@ public class Doubly implements ILinkedList {
 			for (int j=1; j<=index ;i=i.next) j++;
 			i.data=element;	
 		}
+		else 
+			throw new RuntimeException ("ERROR : Invalid Index") ;
 	}
 
 	@Override
@@ -111,6 +117,8 @@ public class Doubly implements ILinkedList {
 			}
 			listCount--;
 		}
+		else 
+			throw new RuntimeException ("ERROR : Invalid Index") ;
 	}
 
 	@Override
@@ -135,21 +143,22 @@ public class Doubly implements ILinkedList {
 		
 			return subList;
 		}
-		else return null ;
+		else 
+			throw new RuntimeException ("ERROR : Invalid Index") ;
 	}
 
 	@Override
 	public boolean contains(Object o) {
 		boolean found = false ;
 		Node i = header;
-		for (; i.next!=null ;i=i.next)
+		for (; i!=null ;i=i.next)
 		{
 			if (i.data == o)
 			{
 				found = true ;
 				break;
 			}
-		} if (i.data == o) found = true ; 
+		} 
 		return found;
 	}
 	
@@ -157,9 +166,8 @@ public class Doubly implements ILinkedList {
 		if (listCount != 0)
 		{
 			Node i = header.next;
-			for (; i.next!=null ;i=i.next)
+			for (; i!=null ;i=i.next)
 				System.out.println(i.data);
-			System.out.println(i.data);
 		}
 	}
 	
