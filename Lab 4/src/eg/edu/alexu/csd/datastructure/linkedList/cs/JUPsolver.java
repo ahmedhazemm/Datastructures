@@ -30,7 +30,7 @@ class JUPsolver {
 		obj.setPolynomial('B',poly2);
 		
 		obj.setPolynomial('R', obj.add('A', 'B'));
-		assertEquals("1x^2+2x^1+3x^0+4x^-2",obj.print('R'));
+		assertEquals("x^2+2x+3+4x^-2",obj.print('R'));
 	}
 	
 	@Test
@@ -40,7 +40,7 @@ class JUPsolver {
 		obj.setPolynomial('C',poly2);
 		
 		obj.setPolynomial('R', obj.subtract('A', 'C'));
-		assertEquals("1x^2+2x^1+-3x^0+-4x^-2",obj.print('R'));
+		assertEquals("x^2+2x-3-4x^-2",obj.print('R'));
 	}
 	
 	@Test
@@ -50,7 +50,7 @@ class JUPsolver {
 		obj.setPolynomial('B',poly2);
 		
 		obj.setPolynomial('R', obj.multiply('C', 'B'));
-		assertEquals("3x^2+6x^1+4x^0+8x^-1",obj.print('R'));
+		assertEquals("3x^2+6x+4+8x^-1",obj.print('R'));
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ class JUPsolver {
 		Psolver obj = new Psolver ();
 		
 		obj.setPolynomial('A',poly1);
-		assertEquals("1x^2+2x^1",obj.print('A'));
+		assertEquals("x^2+2x",obj.print('A'));
 		
 		obj.clearPolynomial('A');
 		assertEquals("Empty",obj.print('A'));
