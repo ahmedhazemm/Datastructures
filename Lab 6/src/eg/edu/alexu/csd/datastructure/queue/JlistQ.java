@@ -24,6 +24,7 @@ class JlistQ {
 		assertEquals(0,myq.size());
 		assertEquals(true,myq.isEmpty());
 		assertThrows(RuntimeException.class, () -> myq.dequeue());
+		assertThrows(RuntimeException.class, () -> myq.front());
 	}
 
 }
